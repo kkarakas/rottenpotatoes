@@ -11,7 +11,7 @@ class Movie < ActiveRecord::Base
     if ratings_list.length() == 0
       return Movie.all
     else
-      mapp = ratings_list.map{rating| rating.upcase}
+      mapp = ratings_list.map{ |rating | rating.upcase}
       return Movie.where(rating: mapp)
     end
   
