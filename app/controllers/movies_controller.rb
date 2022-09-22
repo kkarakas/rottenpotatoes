@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
 
     if params.has_key?(:ratings)#rating_toshow fill it!!!! 
       @ratings_to_show = params[:ratings].keys
-      
+    end
     @movies = Movie.with_ratings(ratings_to_show)
   end
 

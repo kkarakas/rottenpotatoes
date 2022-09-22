@@ -13,7 +13,7 @@ class Movie < ActiveRecord::Base
     else
       mapp = ratings_list.map{rating| rating.upcase}
       return Movie.where(rating: mapp)
-
+    end
   
   end
   
