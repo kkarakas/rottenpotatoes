@@ -19,11 +19,16 @@ class MoviesController < ApplicationController
     end
     @movies = Movie.with_ratings(@ratings_to_show)
 
-    @title_header = ''
+    @title_header = ""
     if params[:sort_by] == "title"
       @title_header = "hilite" #need one more title_header
       @movies = @movies.order(params[:sort_by])
-
+    
+    end
+    @release_date_header = ""
+    if params[:sort_by] == "release_date"
+      @release_date_header = "hilite" #need one more css class
+      @movies = @movies.order(params[:sort_by])
     end
   end
 
