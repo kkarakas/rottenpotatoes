@@ -18,6 +18,13 @@ class MoviesController < ApplicationController
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     end
     @movies = Movie.with_ratings(@ratings_to_show)
+
+    @title_header = ''
+    if params[:sort_by] == "title"
+      @title_header = "hilite" #need one more title_header
+      @movies = Movie.with_ratings(@ratings_to_show).order(params[:title])
+
+    end
   end
 
   def new
