@@ -24,7 +24,7 @@
       </th>
       <th>Rating</th>
       <th class="<%=@release_date_header%>">
-        <%= link_to "Release Date", movies_path(:sort_by => "release_date_header", :ratings => @hashed_ratings_to_show), :id => "release_date_header"%>
+        <%= link_to "Release Date", movies_path(:sort_by => "release_date", :ratings => @hashed_ratings_to_show), :id => "release_date_header"%>
       </th>
       <th>More Info</th>
     </tr>
