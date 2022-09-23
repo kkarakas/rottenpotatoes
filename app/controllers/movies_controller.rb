@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
     @title_header = ''
     if params[:sort_by] == "title"
       @title_header = "hilite" #need one more title_header
-      @movies = Movie.with_ratings(@ratings_to_show).order(params[:title])
+      @movies = @movies.order(param[:sort_by])
 
     end
   end
