@@ -21,14 +21,14 @@ class MoviesController < ApplicationController
 
     @title_header = ""
     if params[:sort_by] == "title"
-      @title_header = "hilite bg-primary" #need one more title_header
+      @title_header = "hilite bg-primary"
       @movies = @movies.order(params[:sort_by])
     
     end
     @release_date_header = ""
-    puts params[:sort_by]
-    if params[:sort_by] == "release_date"
-      @release_date_header = "hilite bg-primary" #need one more css class
+    # puts params[:sort_by]
+    if params[:sort_by] == "release_date_header"
+      @release_date_header = "hilite bg-primary"
       @movies = @movies.order(params[:sort_by])
     end
   end
