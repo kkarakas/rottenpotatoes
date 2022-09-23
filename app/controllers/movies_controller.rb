@@ -15,21 +15,27 @@ class MoviesController < ApplicationController
 
     if params.has_key?(:ratings) 
       @ratings_to_show = params[:ratings].keys
+      session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     end
     @movies = Movie.with_ratings(@ratings_to_show)
-
+    
     @title_header = ""
-    if params[:sort_by] == "title"
-      @title_header = "hilite bg-primary"
+    if params[:sort_by] == "title" #sorting based on title
+      @title_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
+      #update session
+      session[:sort_by] = 
     
     end
-    @release_date_header = ""
+    @release_date_header = params[:sort_by]
     # puts params[:sort_by]
-    if params[:sort_by] == "release_date"
-      @release_date_header = "hilite bg-primary"
+    if params[:sort_by] == "release_date" #sorting based on date
+      @release_date_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
+      #update session
+      session[:sort_by] = params[:sort_by]
+    
     end
   end
 
