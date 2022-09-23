@@ -25,10 +25,10 @@ class MoviesController < ApplicationController
       @title_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
-      session[:sort_by] = 
+      session[:sort_by] = params[:sort_by]
     
     end
-    @release_date_header = params[:sort_by]
+    @release_date_header = ""
     # puts params[:sort_by]
     if params[:sort_by] == "release_date" #sorting based on date
       @release_date_header = "hilite bg-secondary"
