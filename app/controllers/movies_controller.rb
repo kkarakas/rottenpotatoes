@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
-    elsif ! params.has_key?(:ratings) && ! session.has_key(:ratings)
+    elsif ! params.has_key?(:ratings) && ! session.has_key?(:ratings)
       @ratings_to_show = []
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     else
@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
 
 
 
-    # params[:sort_by] = session[:sort_by] #EEEPOJELINHERE
+    params[:sort_by] = session[:sort_by] #EEEPOJELINHERE
     @title_header = ""
     if params[:sort_by] == "title" #sorting based on title
       @title_header = "hilite bg-secondary"
