@@ -13,11 +13,13 @@ class MoviesController < ApplicationController
     @ratings_to_show = []
     
 
-    if params.has_key?(:ratings) 
+    if params.has_key?(:ratings) #ratings
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     end
+    @ratings_to_show = session[:ratings] #maybe inside if
+
     @movies = Movie.with_ratings(@ratings_to_show)
     
     @title_header = ""
