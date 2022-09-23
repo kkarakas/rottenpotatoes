@@ -19,8 +19,8 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>KK
-        <%= link_to "Movie Title, movies_path(:sort_by => "title", :ratings => @hashed_ratings_to_show), :id => "title_header"%>
+      <th>
+        <%= link_to "Movie Title", movies_path(:sort_by => "title", :ratings => @hashed_ratings_to_show), :id => "title_header"%>
       </th>
       <th>Rating</th>
       <th>Release Date</th>
