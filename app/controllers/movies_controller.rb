@@ -13,14 +13,14 @@ class MoviesController < ApplicationController
     @ratings_to_show = []
     
 
-    if params.has_key?(:ratings) #ratings
+    if params.has_key?(:ratings) #param has it
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     elsif ! params.has_key?(:ratings) && ! session.has_key?(:ratings)
       @ratings_to_show = []
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
-    else
+    else #param has 
       @ratings_to_show = session[:ratings] #maybe inside if
       session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
@@ -29,25 +29,26 @@ class MoviesController < ApplicationController
     @movies = Movie.with_ratings(@ratings_to_show)
     
 
-
-
-    params[:sort_by] = session[:sort_by] #EEEPOJELINHERE
     @title_header = ""
+    @release_date_header = ""
     if params[:sort_by] == "title" #sorting based on title
       @title_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
       session[:sort_by] = params[:sort_by]
     
-    end
-    
-    @release_date_header = ""
     # puts params[:sort_by]
-    if params[:sort_by] == "release_date" #sorting based on date
+    elsif params[:sort_by] == "release_date" #sorting based on date
       @release_date_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
       session[:sort_by] = params[:sort_by]
+    
+    else
+      params[:sort_by] = session[:sort_by] #EEEPOJELINHERE
+      @release_date_header = "hilite bg-secondary"
+      @movies = @movies.order(params[:sort_by])
+      #update session
     end
   end
 
