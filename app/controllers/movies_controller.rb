@@ -11,9 +11,11 @@ class MoviesController < ApplicationController
     
     @all_ratings = Movie.all_ratings
     @ratings_to_show = []
+    
 
-    if params.has_key?(:ratings)#rating_toshow fill it!!!! 
+    if params.has_key?(:ratings) 
       @ratings_to_show = params[:ratings].keys
+      @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     end
     @movies = Movie.with_ratings(@ratings_to_show)
   end
