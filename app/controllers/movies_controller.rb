@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     elsif ! params.has_key?(:ratings) && ! session.has_key?(:ratings) #both doesnt have it 
       puts "inside 21"
-      @ratings_to_show = []
+      @ratings_to_show = @all_ratings
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     else #param doesnt have it but session does
       puts "inside 26"
