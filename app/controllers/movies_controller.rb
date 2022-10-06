@@ -8,47 +8,72 @@ class MoviesController < ApplicationController
 
   def index
     # @movies = Movie.all #replace this
-    
+    # session.clear()
     @all_ratings = Movie.all_ratings
     @ratings_to_show = []
-    
+    @redirect = false
 
     if params.has_key?(:ratings) #param has it
+      puts "inside 17"
       @ratings_to_show = params[:ratings].keys
-      session[:ratings] = @ratings_to_show
+      session[:ratings] = params[:ratings]
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
-    elsif ! params.has_key?(:ratings) && ! session.has_key?(:ratings)
+    elsif ! params.has_key?(:ratings) && ! session.has_key?(:ratings) #both doesnt have it 
+      puts "inside 21"
       @ratings_to_show = []
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
-    else #param has 
-      @ratings_to_show = session[:ratings] #maybe inside if
-      session[:ratings] = @ratings_to_show
+    else #param doesnt have it but session does
+      puts "inside 26"
+      @redirect = true
+      # puts session[:ratings] # TEMPS
+      #this is stupid right now CHANGE IT
+      @ratings_to_show = session[:ratings].keys#added
+      # session[:ratings] = @ratings_to_show
       @hashed_ratings_to_show = Hash[@ratings_to_show.collect {|key| [key, '1']}]
-    ######HEREEEEEE
+    
+      params[:ratings] = session[:ratings] 
+      ######HEREEEEEE
+
     end
     @movies = Movie.with_ratings(@ratings_to_show)
     
 
+
     @title_header = ""
     @release_date_header = ""
     if params[:sort_by] == "title" #sorting based on title
+      puts "inside 44"
       @title_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
       session[:sort_by] = params[:sort_by]
+      
     
     # puts params[:sort_by]
     elsif params[:sort_by] == "release_date" #sorting based on date
+      puts "inside 53"
       @release_date_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
       session[:sort_by] = params[:sort_by]
     
-    else
+    elsif ! params.has_key?(:sort_by) && ! session.has_key?(:sort_by) #both doesnt have it 
+      puts "inside 60"
+      
+    else #not sorting???
+      puts "inside 64"
+      @redirect = true
       params[:sort_by] = session[:sort_by] #EEEPOJELINHERE
       @release_date_header = "hilite bg-secondary"
       @movies = @movies.order(params[:sort_by])
       #update session
+
+    end
+
+    if @redirect
+      puts "\n\n\n\nHEREEEEEEEEE\n\n\n\n"
+      @redirect = false
+      redirect_to movies_path( :sort_by => params[:sort_by], :ratings => params[:ratings])
     end
   end
 
